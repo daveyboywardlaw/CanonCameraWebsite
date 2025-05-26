@@ -4,33 +4,99 @@
     ViewData["Title"] = "Home page";
 }
 
-<h3>@ViewData["confirmation"]</h3>
 <form class="form-horizontal" method="post">
-    <div class="form-group">
-        <label for="Name" class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="Name">
+    <script>
+        function PrintMessage() {
+            document.getElementById("testing1").innerHTML = "Paragraph changed.";
+        }
+
+        const temperature = { temp: "", heatIndex: "", feelsLike: "" };
+
+    </script>
+
+    <div id="wrap" style="width:2000px; margin:0 auto;">
+        <div id="left_col" style="float:left; width:1000px;"  >
+          <img src="Images/canon-camera.jpg" sizes="400" />
+          <p id="bob">Welcome to Daves Camera Page. This page demonstatres <br/>
+              using canons camera api to get the cameras settings</p>
+            <h1>Camera Settings</h1>
+            <select name="camerasetting" id="camerasetting">
+                <option value="ISO">ISO</option>
+                <option value="Aperture">Aperture</option>
+                <option value="ShutterSp eed">Shutter Speed</option>
+            </select>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="Email" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="Email">
+        <div id="right_col" style="float:right; width:1000px;">
+            <img src="Images/weather.jpg" sizes="400" />
+             <h1>Weather Details</h1>
+            <label id="testing1">location:</label>
+            <input type="text" name="location" id="location"/>
+            <select name="weatherattributes" id="weatherattributes">
+                <option value="Rain">Rain</option>
+                <option value="Cloud">Cloud</option>
+                <option value="Temperature">Temperature</option>
+                <option value="Wind">Wind</option>
+                <option value="All Weather">All Weather</option>
+            </select>
+            @if (@Model.ApiErrorMessage != null)
+            {
+                <p id="apierror">@Model.ApiErrorMessage</p>
+                <script>
+                    document.getElementById("apierror").style.color = "red";
+                </script>
+            }
+            
+            @if (@Model.WeatherSetting == "Temperature" && @Model.ApiErrorMessage == null)
+            {
+                <p><script>temperature.temp.valueOf</script></p><p>@Model.CurrentTemp</p>
+                <p>Heat Index:</p><p>@Model.HeatIndex</p>
+                <p>Feels Like:</p><p>@Model.FeelsLike</p>
+            }
+            @if (@Model.WeatherSetting == "Wind" && @Model.ApiErrorMessage == null)
+            {
+                <p>Wind Gust:</p><p>@Model.WindGust</p>
+                <p>Wind MPH:</p><p>@Model.WindMph</p>
+                <p>Wind Direction:</p><p>@Model.WindDirection</p>
+                <p>Wind Degree:</p><p>@Model.WindDegree</p>
+                <p>Wind Chill:</p><p>@Model.WindChill</p>
+            }
+            @if (@Model.WeatherSetting == "Rain" && @Model.ApiErrorMessage == null)
+            {
+                <p>Precipitation:</p><p>@Model.Precipitation</p>
+            }
+            @if (@Model.WeatherSetting == "Cloud" && @Model.ApiErrorMessage == null)
+            {
+                <p>Cloud:</p><p>@Model.Cloud</p>
+            }
+            @if (@Model.WeatherSetting == "All Weather" && @Model.ApiErrorMessage == null)
+            {
+                <h2>Temperature</h2>
+                <p>Current Temp:</p><p>@Model.CurrentTemp</p>
+                <p>Heat Index:</p><p>@Model.HeatIndex</p>
+                <p>Feels Like:</p><p>@Model.FeelsLike</p>
+                <h2>Wind</h2>
+                <p>Wind Gust:</p><p>@Model.WindGust</p>
+                <p>Wind MPH:</p><p>@Model.WindMph</p>
+                <p>Wind Direction:</p><p>@Model.WindDirection</p>
+                <p>Wind Degree:</p><p>@Model.WindDegree</p>
+                <p>Wind Chill:</p><p>@Model.WindChill</p>
+                <h2>Rain</h2>
+                <p>Precipitation:</p><p>@Model.Precipitation</p>
+                <h2>Cloud</h2>
+                <p>Cloud:</p><p>@Model.Cloud</p>
+            }
         </div>
-    </div>
+    </div> 
+
     <div>
-        <select name="camerasetting" id="camerasetting">
-            <option value="ISO">ISO</option>
-            <option value="Aperture">Aperture</option>
-            <option value="ShutterSpeed">Shutter Speed</option>            
-        </select>        
-            <button type="submit" class="btn btn-default">Get Setting</button>            
+        <button type="submit" onclick="myFunction()" class="btn btn-default">Get Setting</button>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Register</button>
-        </div>
-    </div>
-    <p>@Model.Message</p>
-    <p>THis is a paragraph I have added</p>
+
+    <script>
+        function myFunction() {
+            document.getElementById("bob").innerHTML = "Paragraph changed.";
+        }
+    </script>
+
+
 </form>
